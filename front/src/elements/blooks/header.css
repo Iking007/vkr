@@ -1,0 +1,119 @@
+.my_button{
+    text-transform: uppercase;
+    margin-right: 16px;
+    margin-top: 8px; 
+    border-radius: 10px; 
+    border: 0px; 
+    height: 30px;
+    line-height: 15px; /* Регулируйте значение, чтобы текст находился по центру */
+}
+.my_input{
+    margin-right: 16px; 
+    margin-top: 8px; 
+    height: 30px;
+}
+.my_link{
+    margin-top: 8px;
+    text-transform: uppercase;
+    line-height: 1;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease; 
+}
+.my_link:hover{
+    margin-top: 6px; 
+    text-shadow: 1px 1px 2px rgb(255, 196, 0), 0 0 1em #f75500, 0 0 0.2em #f75500;;
+}
+.my_logo{
+    height: 50px;
+    margin-top: 8px;
+}
+.my_menu{
+    position: sticky; 
+    top: 0;
+    box-shadow: 2px 1px 2px #f75500;
+    width: 100%;
+    background-color: white;
+}
+.my_menu .my_input:focus{
+    outline: none;
+    box-shadow: 0px 0px 5px #f75500;/*here change the color*/
+    border:1px solid #f75500;/*here change the color*/
+}
+.menu{
+    display: flex;
+    align-items: center; /* Выравниваем дочерние элементы по центру по горизонтали */
+}
+.dropdown_menu{
+    display: none;
+}
+.list_menu_close{
+    display: none;
+}
+.list_menu_open{
+    display: block;
+    position: absolute;
+    right: 3px;
+    opacity: 100;
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px #f75500;
+    border-radius: 10px;
+    border-style: 3px #f75500;
+}
+li{
+    list-style-type: none; 
+}
+.button_menu{
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    text-transform: uppercase;
+    margin-right: 16px;
+    margin-top: 8px; 
+    border-radius: 10px; 
+    border: 0px; 
+    height: 30px;
+    line-height: 15px; /* Регулируйте значение, чтобы текст находился по центру */
+}
+.shop_button{
+    position: r;
+    border-radius: 10px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    line-height: 1;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.button_category{
+    position: absolute;
+    display: none;
+    opacity: 0;
+    border-radius: 10px;
+    text-transform: uppercase;
+    line-height: 1;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    background-color: white;
+}
+.shop_button:hover .button_category{
+    display: block;
+    opacity: 100;
+    border: 1px solid #f75500;
+}
+.shop_button:hover{
+    margin-top: 6px;
+}
+/* Стили для экрана шириной менее 800px */
+@media (max-width: 950px) {
+    .menu {
+        display: none; /* Скрываем основное меню */
+    }
+    
+    .dropdown_menu {
+        display: block; /* Отображаем выпадающее меню */
+    }
+    
+    .my_logo{
+        height: 30px;
+        margin-top: 6px;
+    }
+  }

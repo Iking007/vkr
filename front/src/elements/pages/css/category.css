@@ -1,0 +1,8 @@
+.my-category{
+    margin-bottom: 1vh;
+    cursor: pointer;
+}
+.my-category * {
+    display: flex;
+    flex-wrap: wrap; 
+}
