@@ -20,9 +20,6 @@ public class Cart {
     @GeneratedValue
     @PrimaryKeyJoinColumn
     private Long id;
-    
-    @ManyToOne
-    User user;
 
     @ManyToOne
     Goods goods;

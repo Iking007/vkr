@@ -40,12 +40,12 @@ function Cart(){
             {page.carts ? 
                 (
                     <div class="my-row">
-                            {page.carts.goodsId.map(product => (
-                                <Link to={`/product/${product.id}`} class="my-product">
-                                    {product.img ? (<img src={product.img} alt="Тут должна быть картинка, но её нет"/>): 
+                            {page.carts.map(product => (
+                                <Link to={`/product/${product.goods.id}`} class="my-product">
+                                    {product.goods.img ? (<img src={product.goods.img} alt="Тут должна быть картинка, но её нет"/>): 
                                         (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
                                     }
-                                    <div class="my-str"><p class="my-title">{product.title}</p> <p class="my-des">{product.description}</p></div>
+                                    <div class="my-str"><p class="my-title">{product.goods.title}</p> <p class="my-des">{product.goods.description}</p></div>
                                     <div class="my-buttons"></div>
                                 </Link>
                             ))}

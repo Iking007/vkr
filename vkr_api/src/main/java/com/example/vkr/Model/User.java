@@ -25,8 +25,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     @PrimaryKeyJoinColumn
-    long id;
-    Boolean active;
+    private Long id;
+    private Boolean active;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -34,19 +34,18 @@ public class User implements UserDetails {
     String name, surname, email, password;
     @OneToOne
     @JoinColumn(name = "id_address")
-    Address address;
+    private Address address;
 
     @OneToOne
     @JoinColumn(name = "id_ad")
-    Ad ad;
+    private Ad ad;
 
-    @ManyToMany
-    @JoinTable(name = "cart_user")
-    Set<Cart> carts;
+    @OneToMany
+    private List<Cart> carts;
 
-    @ManyToMany
+    @OneToMany
     @JoinTable(name = "Orders_user")
-    Set<Orders> orders;
+    private List<Orders> orders;
 
     
 

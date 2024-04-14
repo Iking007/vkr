@@ -33,10 +33,9 @@ public class CartController {
     @PostMapping("/cart")
     public void NewOrDelCart(@RequestBody CartRequest request, @RequestHeader("Authorization") String token){
         token = token.substring(7,token.length());
+        User user = tokenRepository.findByToken(token).get().getUser();
         if(request.isAdd()){
-            User user = tokenRepository.findByToken(token).get().getUser();
             Cart cart = Cart.builder()
-                .user(user)
                 .goods(goodsRepository.findById(request.getProduct_id()).get())
                 .quantity(1)
                 .build();
@@ -46,18 +45,21 @@ public class CartController {
 
         }
         else{
-            Cart cart = cartRepository.searchByUserAndGoods(tokenRepository.findByToken(token).get().getUser(), goodsRepository.findById(request.getProduct_id()).get()).get();
+            Cart cart = user.getCarts().stream()
+            .filter(obj -> obj.getGoods().getId().equals(request.getProduct_id())).findFirst().orElse(null);
+            cart = cartRepository.findById(cart.getId()).get();
+            user.getCarts().remove(cart);
+            userRepository.save(user);
             cartRepository.delete(cart);
         }
     }
     @GetMapping("/mycart")
     public String MyCart(@RequestHeader("Authorization") String token) throws JSONException{
         token = token.substring(7,token.length());
-        List<Cart> carts = cartRepository.searchByUser(tokenRepository.findByToken(token).get().getUser());
+        List<Cart> carts = tokenRepository.findByToken(token).get().getUser().getCarts();
         String message = "";
         JSONObject json = new JSONObject();
-        System.out.println(carts.toString());
-        json.put("carts", carts);
+        json.put("carts", carts.toArray());
         message = json.toString();
         System.out.println(message);
         return message;

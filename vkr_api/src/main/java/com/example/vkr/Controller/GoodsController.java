@@ -98,13 +98,9 @@ public class GoodsController {
             else if(user.getRole().name() == "USER"){
                 json.put("access_level", 0);
             }
-            if(cartRepository.searchByUserAndGoods(user, product).isPresent()){ // Проверка роли пользователя
-                json.put("isCart", true);
-            }
-            else{
-                json.put("isCart", false);
-            }
-
+            boolean isCart = user.getCarts().stream()
+                .anyMatch(obj -> obj.getGoods().equals(product));
+            json.put("isCart", isCart);
         }
         System.out.println(json);
         message = json.toString();
