@@ -24,4 +24,6 @@ public class Ad {
     String telegram;
 
     Boolean active;
+
+    double price;
 }

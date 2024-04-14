@@ -31,10 +31,10 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                    .requestMatchers("/", "/query", "/goods/**", "/product/**", "/reg", "/login", "/categories")// Указанное здесь будет доступно для всех пользователей
+                    .requestMatchers("/", "/query", "/goods/**", "/product/**", "/reg", "/login", "/categories", "/ads/**", "/ad/**")// Указанное здесь будет доступно для всех пользователей
                     .permitAll()
                     .requestMatchers( "/users/**").hasRole("ADMIN")
-                    .requestMatchers("/addbook", "/addgenre", "/addauthor", "/delauthor", "/delgenre", "/delbook").hasAnyRole("ADMIN", "MODER")
+                    .requestMatchers("/add").hasAnyRole("ADMIN", "MODER")
                     .anyRequest()
                     .authenticated()
                 .and()

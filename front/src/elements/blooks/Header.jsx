@@ -24,7 +24,7 @@ function Header(){
                         <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/goods">Магазин</Link>
                         <Link class="me-3 py-2 text-dark text-decoration-none my_link button_category" to="/categories">Категории</Link>
                     </li>
-                    <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/ad">Объявления</Link>
+                    <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/ads">Объявления</Link>
                     {localStorage.token != null ? <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/mycart">Корзина</Link>: null}
                     {localStorage.token == null ? <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/login">Вход</Link>: 
                         <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/prof">Профиль</Link>
@@ -42,7 +42,7 @@ function Header(){
                     <li><Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/">Главная</Link></li>
                     <li><Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/goods">Магазин</Link></li>
                     <li><Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/categories">Категории</Link></li>
-                    <li><Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/ad">Объявления</Link></li>
+                    <li><Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/ads">Объявления</Link></li>
                     {localStorage.token != null ? <li><Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/mycart">Корзина</Link></li>: null}
                         {localStorage.token == null ? <Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/login">Вход</Link>: 
                             <li><Link class="me-3 py-2 text-dark text-decoration-none my_link" to="/prof">Профиль</Link></li>

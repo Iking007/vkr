@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {Link,useLocation} from "react-router-dom";
 import axios from "axios";
 import "../blooks/header.css";
+import "./css/profile.css"
 import address from '../..';
 
 function Profile(){
@@ -37,31 +38,43 @@ function Profile(){
     const exit = () => { window.location.replace("/"); localStorage.clear();}
     return(
         <div>
-            {page.name ? 
-              (
-                <div>
-                    <h2>{page.name}</h2>
-                    <h3>Ваша роль: {page.role}</h3>
-                    {page.role == "ADMIN" || page.role == "MODER" ? 
-                      (<>
-                        <Link to="/add/category" class="my_button">Добавить Категорию</Link>
-                        <Link to="/add/product" class="my_button">Добавить Товар</Link>
-                      </>): 
-                      null
-                    }
-                    {page.role == "ADMIN" ? 
-                      (<>
-                        <Link to="/users" class="my_button">Все пользователи</Link>
-                      </>): 
-                      null
-                    }
-                </div>
-              ): 
-              (
-                  <>Loading...</>
-              )
-            }        
-            <button onClick={exit}>Выйти из аккаунта</button>
+          {page.user ? 
+            (<div class="d-flex profile">
+              <div>
+                <h2>{page.user.name}</h2>
+                <h3>Ваша роль: {page.user.role}</h3>
+              </div>
+              <ul class="buttons_profile">
+                {page.access_level > 0 ? 
+                  (<>
+                    <li><Link to="/add/category" class="text-dark text-decoration-none link_profile">Добавить Категорию</Link></li>
+                    <li><Link to="/add/product" class="text-dark text-decoration-none link_profile">Добавить Товар</Link></li>
+                  </>): 
+                  null
+                }
+                {page.access_level == 2 ? 
+                  (<>
+                    <li><Link to="/users" class="text-dark text-decoration-none link_profile">Все пользователи</Link></li>
+                  </>): 
+                  null
+                }
+                {page.user.ad ? 
+                  (
+                    <li><Link to="/add/ad" class="text-dark text-decoration-none link_profile">Создать объявление</Link></li>
+                  ): 
+                  (
+                    <li><Link to={`/ad/`+ page.user.ad.id} class="text-dark text-decoration-none link_profile">Моё объявление</Link></li>
+                  )
+                }
+              </ul>
+              
+            </div>
+            ): 
+            (
+                <>Loading...</>
+            )
+          }        
+          <button onClick={exit}>Выйти из аккаунта</button>
         </div>
     )
 }

@@ -1,5 +1,9 @@
 package com.example.vkr.Controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import lombok.RequiredArgsConstructor;
@@ -57,14 +61,32 @@ public class AuthController {
     @CrossOrigin(origins = "*")
     public String profile(@RequestHeader("Authorization") String token) throws JSONException{
         JSONObject json = new JSONObject();
+        JSONObject jsonUser = new JSONObject();
         String message;
         //  System.out.println(token);
         token = token.substring(7,token.length());
         System.out.println(token);
         User user = tokenRepository.findByToken(token).get().getUser();
-        json.put("name", user.getName());
-        json.put("role", user.getRole());
-        System.out.println(user.getName());
+
+        if(user.getRole().name() == "ADMIN"){ // Проверка роли пользователя
+            json.put("access_level", 2);
+        }
+        else if(user.getRole().name() == "MODER"){
+            json.put("access_level", 1);
+        }
+        else{
+            json.put("access_level", 0);
+
+        }
+        List<User> userList = new ArrayList<>();
+        userList.add(user);
+        jsonUser.put("name", user.getName());
+        jsonUser.put("surname", user.getSurname());
+        jsonUser.put("role", user.getRole());
+        jsonUser.put("email", user.getEmail());
+        jsonUser.put("ad", Arrays.asList(user.getAd()));
+        json.put("user", jsonUser);
+        //System.out.println(user.getName());
         message = json.toString();
         return message;
     }

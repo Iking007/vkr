@@ -13,6 +13,9 @@ import Goods from "./elements/pages/Goods";
 import Product from "./elements/pages/Product";
 import Category from "./elements/pages/Category";
 import Cart from "./elements/pages/Cart";
+import Ads from "./elements/pages/Ads";
+import Ad from "./elements/pages/Ad";
+import AddAd from "./elements/pages/AddAd";
 
 function App() {
   return (
@@ -33,7 +36,9 @@ function App() {
         <Route path="/add/category" element={AddCategory()}/>
         <Route path="/categories" element={Category()}/>
         <Route path="/mycart" element={Cart()}/>
-        
+        <Route path="/ads" element={Ads()}/>
+        <Route path="/ad/:id" element={Ad()}/>
+        <Route path="/add/ad" element={AddAd()}/>
       </Routes>
     </div>
   );

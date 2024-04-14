@@ -1,0 +1,21 @@
+.profile{
+    width: 100%;
+}
+.buttons_profile{
+    margin-right: 0;
+    margin-left: auto;
+    padding: 1%;
+    width: 40vw;
+}
+.link_profile{
+    margin-top: 8px;
+    text-transform: uppercase;
+    line-height: 1;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease; 
+    border-bottom: 2px solid #f75500;
+}
+.link_profile:hover{
+    margin-top: 6px; 
+    text-shadow: 1px 1px 2px rgb(255, 196, 0), 0 0 1em #f75500, 0 0 0.2em #f75500;;
+}

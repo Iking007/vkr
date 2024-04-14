@@ -2,7 +2,6 @@ package com.example.vkr.Model;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,7 +46,6 @@ public class User implements UserDetails {
     @JoinTable(name = "Orders_user")
     private List<Orders> orders;
 
-    
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;

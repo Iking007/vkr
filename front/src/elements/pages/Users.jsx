@@ -23,6 +23,7 @@ function Users(){
               };
             let controller = new AbortController();
             await axios.request(config).then(response => {
+                console.log(response.data)
                 setPage(response.data);
               })
               .catch(error => {
@@ -59,43 +60,39 @@ function Users(){
         {page.users ? 
           (
             <div>
-              {localStorage.role == "ADMIN" ? (
-                <div>
-                    <table>
+                <table>
+                    <tr>
+                        <th>id</th>
+                        <th>email</th>
+                        <th>name</th>
+                        <th>role</th>
+                        <th>SETrole</th>
+                    </tr>
+                    {page.users.map(user => (
                         <tr>
-                            <th>id</th>
-                            <th>email</th>
-                            <th>name</th>
-                            <th>role</th>
-                            <th>SETrole</th>
+                            <td>{user.id}</td>
+                            <td>{user.email}</td>
+                            <td>{user.name}</td>
+                            <td>{user.role}</td>
+                            <td class="roles">
+                                <button onClick={() => setRole(user.id, 1)}>USER</button>
+                                <button onClick={() => setRole(user.id, 2)}>MODER</button>
+                                <button onClick={() => setRole(user.id, 3)}>ADMIN</button>
+                            </td>
                         </tr>
-                        {page.users.map(user => (
-                            <tr>
-                                <td>{user.id}</td>
-                                <td>{user.email}</td>
-                                <td>{user.name}</td>
-                                <td>{user.role}</td>
-                                <td class="roles">
-                                    <button onClick={() => setRole(user.id, 1)}>USER</button>
-                                    <button onClick={() => setRole(user.id, 2)}>MODER</button>
-                                    <button onClick={() => setRole(user.id, 3)}>ADMIN</button>
-                                </td>
-                            </tr>
-                            ))}
-                        <tr> 
-                        </tr>
-                    </table>
-                    <div class="my-numPage">
-                        {numPage > 1 ?
-                            (<a href="#head"><button onClick={() => setNumPage(numPage - 1)}>←</button></a>):
-                            (null)
-                        }  
-                        {page.page} 
-                        {page.maxPage == page.page ? (null): (<>...{page.maxPage}<a href="#head"><button onClick={() => setNumPage(numPage + 1)}>→</button></a></>)
-                        }
-                    </div>
+                        ))}
+                    <tr> 
+                    </tr>
+                </table>
+                <div class="my-numPage">
+                    {numPage > 1 ?
+                        (<a href="#head"><button onClick={() => setNumPage(numPage - 1)}>←</button></a>):
+                        (null)
+                    }  
+                    {page.page} 
+                    {page.maxPage == page.page ? (null): (<>...{page.maxPage}<a href="#head"><button onClick={() => setNumPage(numPage + 1)}>→</button></a></>)
+                    }
                 </div>
-              ): null}
             </div>
           ): 
           (

@@ -5,7 +5,7 @@ import "./css/goods.css"
 import "./css/addProduct.css"
 import address from '../..';
 
-function AddProduct(){
+function AddAd(){
     const [categories, setСategories] = useState([]);
     const [category, setСategory] = useState();
     const [title, setTitle] = useState();
@@ -35,7 +35,7 @@ function AddProduct(){
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `http://${address}:8080/add/product`,
+          url: `http://${address}:8080/add/ad`,
           headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -51,21 +51,13 @@ function AddProduct(){
             console.log(error.config);
           })
       };
-
-    var MakeItemСategory = function(X) {
-        return <option value={X.id}>{X.title}</option>;
-    };
     return(
         <div>
-            Добавление товара
+            Создание объявления
             <form>
                 <input type="text" required
                     name="title" placeholder="Введите название"
                     class="form-control" value={title} onInput={e => setTitle(e.target.value)} autocomplete="off"/><br/>
-                <select type="text" name="category" required placeholder="Выберите категорию" class="form-control" onChange={e => setСategory(e.target.value)}>
-                    <option value="" selected disabled>Выберите категорию</option>
-                    {categories.map(MakeItemСategory)}
-                </select><br/>
                 <input type="text"
                     name="img" placeholder="Введите ссылку на картинку"
                     class="form-control" value={img} onInput={e => setImg(e.target.value)} autocomplete="off"/><br/>
@@ -76,14 +68,13 @@ function AddProduct(){
                     class="form-control" value={price} onInput={e => setPrice(e.target.value)} autocomplete="off"/><br/>
                 <button class="my-button" onClick={() => post({
                     'title': title,
-                    'category_id': category,
                     'img': img,
                     'str': str,
                     'price': price
-                })}>Добавить товар</button>
+                })}>Выставить объявление</button>
             </form>
         </div>
     )
 }
 
-export default AddProduct;
+export default AddAd;

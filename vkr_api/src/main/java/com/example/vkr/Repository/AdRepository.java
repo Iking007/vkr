@@ -9,8 +9,7 @@ import com.example.vkr.Model.Ad;
 
 @Repository
 public interface AdRepository extends JpaRepository<Ad, Long> {
-    @SuppressWarnings("null")
-    List<Ad> findAll();
+    List<Ad> findAllByActive(boolean active);
     
     List<Ad> findById(long id);
 }

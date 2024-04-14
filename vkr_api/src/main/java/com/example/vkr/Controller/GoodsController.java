@@ -48,11 +48,11 @@ public class GoodsController {
         json.put("maxPage", ((goods.size()%elInPage == 0 )? goods.size()/elInPage : goods.size()/elInPage + 1));
         json.put("goods", Arrays.copyOfRange(goods.toArray(), elInPage*page-elInPage, ((goods.size() <= elInPage*page) ? goods.size() : elInPage*page)));
         message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
         return message;
     }
     
-    @PostMapping("/addproduct")
+    @PostMapping("/add/product")
     @CrossOrigin(origins = "*")
     public void addProduct(@RequestBody GoodsRequest request){
         Goods product = Goods.builder()
@@ -124,7 +124,7 @@ public class GoodsController {
         json.put("maxPage", ((goods.size()%elInPage == 0 )? goods.size()/elInPage : goods.size()/elInPage + 1));
         json.put("goods", Arrays.copyOfRange(goods.toArray(), elInPage*page-elInPage, ((goods.size() <= elInPage*page) ? goods.size() : elInPage*page)));
         message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
         return message;
     }
 }
