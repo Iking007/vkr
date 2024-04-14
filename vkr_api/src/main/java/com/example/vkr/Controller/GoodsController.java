@@ -66,14 +66,14 @@ public class GoodsController {
         return;
     }
 
-    @PostMapping("/delproduct")
+    @PostMapping("/goods/changeActiv")
     @CrossOrigin(origins = "*")
     public void delbook(@RequestParam Long product_id, @RequestHeader(value="Authorization") String token){
         token = token.substring(7,token.length());
         String [] roles = {"MODER", "ADMIN"};
         if(Arrays.asList(roles).contains(tokenRepository.findByToken(token).get().getUser().getRole().name())){ // Проверка роли пользователя
             Goods product = goodsRepository.findById(product_id).get();
-            product.setActive(false);
+            product.setActive(!product.getActive());
             goodsRepository.save(product);
         }
         return;
@@ -102,7 +102,7 @@ public class GoodsController {
                 .anyMatch(obj -> obj.getGoods().equals(product));
             json.put("isCart", isCart);
         }
-        System.out.println(json);
+        //System.out.println(json);
         message = json.toString();
         return message;
     }

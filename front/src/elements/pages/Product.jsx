@@ -65,13 +65,13 @@ function Product(){
         })
         controller.abort()
     };
-    const del = (id = {}) => {
+    const changeActiv = (id = {}) => {
       let controller = new AbortController();
       // console.log(id);
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `http://${address}:8080/delproduct?product_id=${id}`,
+        url: `http://${address}:8080/goods/changeActiv?product_id=${id}`,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -95,7 +95,11 @@ function Product(){
           (<div>{page.product.map(product => ( 
             <div>
               <div class="pricing-header p-3 pb-md-4 mx-auto text-justify">
-                <h5 class="display-4 text-center">{product.title}</h5>
+                <h5 class="display-4 text-center">{product.title} 
+                  {!product.active ? (" Нет в наличии "): 
+                    null
+                  }
+                </h5>
                 {product.img ? (<img src={product.img} alt="Тут должна быть картинка, но её нет"/>): 
                   (<img src={noImg} alt="Тут должна быть картинка, но её нет"/>)
                 }
@@ -106,8 +110,12 @@ function Product(){
                 <p class="fs-5 text-muted mb-1" >Цена: {product.price}</p>
                 {/* {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? (<Link class="btn btn-success" to={`/update/${product.id}`}>Редактировать</Link>): null}<br/> */}
                 {
-                  page.access_level == 2 ? 
-                  <button type='button' class="btn btn-success my-sm-3" onClick={() => del(productId)}>Удалить</button>: null
+                  page.access_level == 2  && product.active ? 
+                  <button type='button' class="btn btn-success my-sm-3" onClick={() => changeActiv(productId)}>Удалить</button>: null
+                }<br/>
+                {
+                  page.access_level == 2  && !product.active ? 
+                  <button type='button' class="btn btn-success my-sm-3" onClick={() => changeActiv(productId)}>Вернуть в поиск</button>: null
                 }<br/>
                 {
                   page.access_level >= 0 && !isCart ? 
