@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.vkr.Model.Ad;
 import com.example.vkr.Model.User;
 import com.example.vkr.Repository.AdRepository;
+import com.example.vkr.Repository.UserRepository;
 import com.example.vkr.Requests.AdRequest;
 import com.example.vkr.Token.TokenRepository;
 
@@ -28,6 +29,8 @@ public class AdController {
     AdRepository adRepository;
     @Autowired
     TokenRepository tokenRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @PostMapping("/add/ad")
     @CrossOrigin(origins = "*")
@@ -42,6 +45,7 @@ public class AdController {
             .price(request.getPrice()).build();
         adRepository.save(ad);
         user.setAd(ad);
+        userRepository.save(user);
         return;
     }
 
@@ -78,9 +82,8 @@ public class AdController {
             else if(user.getRole().name() == "USER"){
                 json.put("access_level", 0);
             }
-            boolean isCart = user.getCarts().stream()
-                .anyMatch(obj -> obj.getGoods().equals(ad));
-            json.put("isCart", isCart);
+            boolean isMy = user.getAd() == ad;
+            json.put("isMy", isMy);
         }
         //System.out.println(json);
         message = json.toString();

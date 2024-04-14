@@ -6,6 +6,7 @@ import noImg from "./images/no.png"
 import address from '../..';
 
 function Goods(){
+    const [loading, setLoading] = useState(true);
     const [page, setPage] = useState([]);
     const [numPage, setNumPage] = useState(1);
     const location = useLocation();
@@ -17,6 +18,8 @@ function Goods(){
         let controller = new AbortController();
         await axios.get(`http://${address}:8080/goods/` + numPage).then(response => {   
             setPage(response.data);
+
+            setLoading(false);// Отключение загрузки
           })
           .catch(error => {
             console.log(error.config);
@@ -25,10 +28,11 @@ function Goods(){
     }
     if ("/goods" == url){
         fetchData()};
+        setLoading(false);
     },[numPage, "/goods" == url ? true: false]);
     return(
         <div>
-            {page.goods ? 
+            {page.goods && !loading ? 
                 (
                     <div class="my-row">
                         

@@ -6,6 +6,7 @@ import noImg from "./images/no.png"
 import address from '../..';
 
 function Ads(){
+    const [loading, setLoading] = useState(true);
     const [page, setPage] = useState([]);
     const [numPage, setNumPage] = useState(1);
     const location = useLocation();
@@ -16,8 +17,9 @@ function Ads(){
     async function fetchData() {
         let controller = new AbortController();
         await axios.get(`http://${address}:8080/ads/` + numPage).then(response => {  
-            console.log(response.data) 
+            console.log(response.data);
             setPage(response.data);
+            setLoading(false);// Отключение загрузки
           })
           .catch(error => {
             console.log(error.config);
@@ -29,7 +31,7 @@ function Ads(){
     },[numPage, "/ads" == url ? true: false]);
     return(
         <div>
-            {page.ads ? 
+            {page.ads && !loading ? 
                 (
                     <div class="my-row">
                         

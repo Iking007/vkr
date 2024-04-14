@@ -5,6 +5,7 @@ import "./css/category.css"
 import address from '../..';
 
 function Category(){
+    const [loading, setLoading] = useState(true);  
     const [page, setPage] = useState([]);
     const location = useLocation();
     const url = location.pathname;
@@ -26,6 +27,8 @@ function Category(){
       axios.request(config).then(response => {
           console.log(response.data);
           setPage(response.data);
+          
+          setLoading(false);// Отключение загрузки
         })
         .catch(error => {
           console.log(error.config);
@@ -33,12 +36,12 @@ function Category(){
     }
     if ("/categories" == url) {
     fetchData(url)};
-    return() => controller.abort
+    return controller.abort
     },["/categories" == url ? true: false]);
     
     return(
         <div>
-        {page.categories ? 
+        {page.categories && !loading ? 
           (
             <div>
               {page.access_level == 2 ? <h4>При удалении удалятся и все книги жанра</h4>: null}

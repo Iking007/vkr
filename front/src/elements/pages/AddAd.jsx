@@ -6,29 +6,10 @@ import "./css/addProduct.css"
 import address from '../..';
 
 function AddAd(){
-    const [categories, setСategories] = useState([]);
-    const [category, setСategory] = useState();
     const [title, setTitle] = useState();
     const [img, setImg] = useState();
     const [str, setStr] = useState();
     const [price, setPrice] = useState();
-
-    const location = useLocation();
-    const url = location.pathname;
-    
-    useEffect(() => {
-    async function fetchData() {
-    //   console.log(url);
-      await axios.get(`http://${address}:8080/categories`).then(response => {
-            setСategories(response.data.categories);
-        })
-        .catch(error => {
-          console.log(error.config);
-        })
-    }
-    if ("/add/product" == url) {
-    fetchData()};
-    },["/add/product" == url ? true: false]);
 
     const post = (data = {}) => {
         console.log(data);

@@ -6,6 +6,7 @@ import "./css/goods.css"
 import address from '../..';
 
 function Query(){
+    const [loading, setLoading] = useState(true);
     const [page, setPage] = useState([]);
     const [numPage, setNumPage] = useState(1);
     const location = useLocation();
@@ -34,9 +35,12 @@ function Query(){
             axios.request(config).then(response => {
                 console.log(response.data) // значение параметра "myQueryParam" из URL
                 setPage(response.data);
+                
+                setLoading(false);// Отключение загрузки
             })
             .catch(error => {
                 console.log(error.config);
+            
             })
         return controller.abort();
     }
@@ -47,7 +51,7 @@ function Query(){
     
     return(
         <div>
-            {page.goods ? 
+            {page.goods && !loading ? 
                 (
                     <div class="my-row">
                         {page.goods.map(product => (

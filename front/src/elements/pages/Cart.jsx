@@ -6,6 +6,7 @@ import noImg from "./images/no.png"
 import address from '../..';
 
 function Cart(){
+    const [loading, setLoading] = useState(true);
     const [page, setPage] = useState([]);
     const location = useLocation();
     const url = location.pathname;
@@ -26,6 +27,8 @@ function Cart(){
             axios.request(config).then(response => {
                 console.log(response.data);
                 setPage(response.data)
+
+                setLoading(false);// Отключение загрузки
               })
               .catch(error => {
                 console.log(error.config);
@@ -37,7 +40,7 @@ function Cart(){
     },["/mycart" == url ? true: false]);
     return(
         <div>
-            {page.carts ? 
+            {page.carts && !loading ? 
                 (
                     <div class="my-row">
                             {page.carts.map(cart => (

@@ -84,7 +84,7 @@ public class AuthController {
         jsonUser.put("surname", user.getSurname());
         jsonUser.put("role", user.getRole());
         jsonUser.put("email", user.getEmail());
-        jsonUser.put("ad", Arrays.asList(user.getAd()));
+        jsonUser.put("ad", user.getAd().getId());
         json.put("user", jsonUser);
         //System.out.println(user.getName());
         message = json.toString();

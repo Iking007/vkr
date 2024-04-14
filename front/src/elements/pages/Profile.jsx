@@ -7,6 +7,7 @@ import address from '../..';
 
 function Profile(){
     const [page, setPage] = useState(false);
+    const [loading, setLoading] = useState(true);
     const location = useLocation();
     const url = location.pathname;
     //const params = new URLSearchParams(location.search);
@@ -21,15 +22,15 @@ function Profile(){
             }
           };
           axios.get(`http://${address}:8080/prof`,config).then(response => {
-            //console.log(response.data);
             localStorage.role = response.data.role;
             setPage(response.data);
-            //window.location.replace("/")
-            //console.log(response.data);
+
+            setLoading(false);// Отключение загрузки
           })
           .catch(error => {
             console.log(error.config);
           })
+          
         };
         if ("/prof" == location.pathname){postRequest()};
         return controller.abort();
@@ -38,7 +39,7 @@ function Profile(){
     const exit = () => { window.location.replace("/"); localStorage.clear();}
     return(
         <div>
-          {page.user ? 
+          {page.user && !loading ? 
             (<div class="d-flex profile">
               <div>
                 <h2>{page.user.name}</h2>
@@ -58,12 +59,12 @@ function Profile(){
                   </>): 
                   null
                 }
-                {page.user.ad ? 
+                {page.user.ad == null? 
                   (
                     <li><Link to="/add/ad" class="text-dark text-decoration-none link_profile">Создать объявление</Link></li>
                   ): 
                   (
-                    <li><Link to={`/ad/`+ page.user.ad.id} class="text-dark text-decoration-none link_profile">Моё объявление</Link></li>
+                    <li><Link to={`/ad/`+ page.user.ad} class="text-dark text-decoration-none link_profile">Моё объявление</Link></li>
                   )
                 }
               </ul>
