@@ -8,9 +8,11 @@ import address from '../..';
 function AddProduct(){
     const [categories, setСategories] = useState([]);
     const [category, setСategory] = useState();
+    const [categoryTitle, setСategoryTitle] = useState("");
     const [title, setTitle] = useState();
     const [img, setImg] = useState();
     const [str, setStr] = useState();
+    const [id, setId] = useState(null);
     const [price, setPrice] = useState();
 
     const location = useLocation();
@@ -18,7 +20,7 @@ function AddProduct(){
     
     useEffect(() => {
     async function fetchData() {
-    //   console.log(url);
+      setId(null);
       await axios.get(`http://${address}:8080/categories`).then(response => {
             setСategories(response.data.categories);
         })
@@ -26,9 +28,36 @@ function AddProduct(){
           console.log(error.config);
         })
     }
-    if ("/add/product" == url) {
+    async function edit() {
+        let controller = new AbortController();
+        let config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: `http://${address}:8080${url}`,
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        };
+        axios.request(config).then(response => {
+            //console.log(response.data);
+            setСategory(response.data.category);
+            setTitle(response.data.title);
+            setImg(response.data.image);
+            setStr(response.data.str)
+            setPrice(response.data.price);
+            setСategoryTitle(response.data.categoryTitle)
+            setId(response.data.id)
+          })
+          .catch(error => {
+            console.log(error.config);
+          })
+        return controller.abort();
+      }
+    if ("/add/product" == url || "/edit/product" == url.substring(0,13)) {
     fetchData()};
-    },["/add/product" == url ? true: false]);
+    if ("/edit/product" == url.substring(0,13)) {edit()};
+    },[url,"/add/product" == url ? true: false]);
 
     const post = (data = {}) => {
         console.log(data);
@@ -59,11 +88,11 @@ function AddProduct(){
         <div>
             
             <form class="my-form">
-                Добавление товара
+              {"/edit/product" != url.substring(0,13) ? "Добавление товара": "Редактирование товара"}
                 <input type="text" required
                     name="title" placeholder="Введите название"
                     class="form-control" value={title} onInput={e => setTitle(e.target.value)} autocomplete="off"/><br/>
-                <select type="text" name="category" required placeholder="Выберите категорию" class="form-control" onChange={e => setСategory(e.target.value)}>
+                <select type="text" name="category" value={categoryTitle} required placeholder="Выберите категорию" class="form-control" onChange={e => {setСategory(e.target.value)}}>
                     <option value="" selected disabled>Выберите категорию</option>
                     {categories.map(MakeItemСategory)}
                 </select><br/>
@@ -81,7 +110,7 @@ function AddProduct(){
                     'img': img,
                     'str': str,
                     'price': price
-                })}>Добавить товар</button>
+                })}>{"/edit/product" != url.substring(0,13) ? "Добавить товар": "Сохранить изменения"}</button>
             </form>
         </div>
     )

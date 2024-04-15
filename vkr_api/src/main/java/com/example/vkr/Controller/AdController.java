@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.vkr.Model.Ad;
-import com.example.vkr.Model.Address;
 import com.example.vkr.Model.User;
 import com.example.vkr.Repository.AdRepository;
 import com.example.vkr.Repository.UserRepository;
@@ -38,15 +37,29 @@ public class AdController {
     public void addad(@RequestBody AdRequest request, @RequestHeader("Authorization") String token){
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
-        Ad ad = Ad.builder()
-            .title(request.getTitle())
-            .image(request.getImg())
-            .active(true)
-            .description(request.getStr())
-            .price(request.getPrice()).build();
-        adRepository.save(ad);
-        user.setAd(ad);
-        userRepository.save(user);
+        if (user.getAd()== null){
+            Ad ad = Ad.builder()
+                .title(request.getTitle())
+                .image(request.getImg())
+                .active(true)
+                .description(request.getStr())
+                .price(request.getPrice())
+                .communications(request.getCommunications()).build();
+            adRepository.save(ad);
+            user.setAd(ad);
+            userRepository.save(user);
+        }
+        else {
+            Ad ad = user.getAd();
+            ad.setTitle(request.getTitle());
+            ad.setImage(request.getImg());
+            ad.setDescription(request.getStr());
+            ad.setPrice(request.getPrice());
+            ad.setCommunications(request.getCommunications());
+            adRepository.save(ad);
+            user.setAd(ad);
+            userRepository.save(user);
+        }
         return;
     }
 
@@ -60,7 +73,7 @@ public class AdController {
         json.put("maxPage", ((ads.size()%elInPage == 0 )? ads.size()/elInPage : ads.size()/elInPage + 1));
         json.put("ads", Arrays.copyOfRange(ads.toArray(), elInPage*page-elInPage, ((ads.size() <= elInPage*page) ? ads.size() : elInPage*page)));
         message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
         return message;
     }
 
@@ -102,9 +115,9 @@ public class AdController {
         json.put("title", ad.getTitle());
         json.put("str", ad.getDescription());
         json.put("price", ad.getPrice());
-        json.put("communication", ad.getTelegram());
+        json.put("communication", ad.getCommunications());
         String message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
         return message;
     }
     

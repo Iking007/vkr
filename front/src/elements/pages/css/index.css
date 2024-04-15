@@ -10,10 +10,9 @@
     margin-right: -50%;
     transform: translate(-50%, -50%) }
 .index_img{
-    position: absolute;
-    width: 80%;
-    top: -20px;
-    left: 10%;
+    max-width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 .gr{
     width: 80%;
@@ -27,4 +26,7 @@
     max-width: 90vh;
     align-items: center;
     text-align: center;
+}
+.my-flex{
+    display: flex;
 }

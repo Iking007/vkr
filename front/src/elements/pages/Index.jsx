@@ -4,9 +4,9 @@ import indImg from "./images/index.jpg"
 
 function Index(){
     return(
-        <div class="center">
+        
             <img src={indImg} class="index_img"></img>
-        </div>
+        
     )
 }
 

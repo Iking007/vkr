@@ -15,4 +15,5 @@ public class GoodsRequest {
     private String img;
     private String str;
     private double price;
+    private Long id;
 }

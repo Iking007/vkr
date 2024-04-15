@@ -65,29 +65,28 @@ function AddAddress(){
         })
       };
     return(
-        <div>
-          {"/edit/address" != url ? "Добавление Адреса": "Редактирование адреса"}
-            
-            <form class="my-form">
-                <input type="text" required
-                   name="city" placeholder="Введите город"
-                  class="form-control" value={city} onInput={e => setCity(e.target.value)} autocomplete="off"/><br/>
-                <input type="text" required
-                  name="street" placeholder="Введите улицу"
-                  class="form-control" value={street} onInput={e => setStreet(e.target.value)} autocomplete="off"/><br/>
-                <input type="text" required
-                    name="home" placeholder="Введите дом"
-                    class="form-control" value={home} onInput={e => setHome(e.target.value)} autocomplete="off"/><br/>
-                  <input type="num" 
-                    name="home" placeholder="Введите номер квартиры"
-                    class="form-control" value={flat} onInput={e => setFlat(e.target.value)} autocomplete="off"/><br/>
-                <button class="my-button" onClick={() => post({
-                    'city': city,
-                    'street': street,
-                    'home': home,
-                    'flat': flat
-                })}>{"/edit/address" != url ? "Добавить Адрес": "Сохранить изменения"}</button>
-            </form>
+        <div> 
+          <form class="my-form">
+            {"/edit/address" != url ? "Добавление Адреса": "Редактирование адреса"}
+            <input type="text" required
+                name="city" placeholder="Введите город"
+              class="form-control" value={city} onInput={e => setCity(e.target.value)} autocomplete="off"/><br/>
+            <input type="text" required
+              name="street" placeholder="Введите улицу"
+              class="form-control" value={street} onInput={e => setStreet(e.target.value)} autocomplete="off"/><br/>
+            <input type="text" required
+                name="home" placeholder="Введите дом"
+                class="form-control" value={home} onInput={e => setHome(e.target.value)} autocomplete="off"/><br/>
+              <input type="num" 
+                name="home" placeholder="Введите номер квартиры"
+                class="form-control" value={flat} onInput={e => setFlat(e.target.value)} autocomplete="off"/><br/>
+            <button class="my-button" onClick={() => post({
+                'city': city,
+                'street': street,
+                'home': home,
+                'flat': flat
+            })}>{"/edit/address" != url ? "Добавить Адрес": "Сохранить изменения"}</button>
+          </form>
         </div>
     )
 }

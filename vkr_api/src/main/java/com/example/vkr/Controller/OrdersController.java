@@ -50,7 +50,7 @@ public class OrdersController {
                 .anyMatch(obj -> obj.equals(order));
             json.put("isMy", isMy);
         }
-        System.out.println(json);
+        //System.out.println(json);
         String message = json.toString();
         return message;
 
@@ -66,7 +66,7 @@ public class OrdersController {
 
     @GetMapping("/myorders/{page}")
     @CrossOrigin(origins = "*")
-    public String MeOyrders(@PathVariable(value = "page") Long page, @RequestHeader("Authorization") String token) throws JSONException{
+    public String MyOrders(@PathVariable(value = "page") Long page, @RequestHeader("Authorization") String token) throws JSONException{
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
         List<Orders> orders = user.getOrders();
@@ -78,7 +78,53 @@ public class OrdersController {
         json.put("maxPage", ((orders.size()%elInPage == 0 )? orders.size()/elInPage : orders.size()/elInPage + 1));
         json.put("orders", orders.subList(startIndex, endIndex).toArray());
         String message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
+        return message;
+    }
+
+    @GetMapping("/orders/{page}")
+    @CrossOrigin(origins = "*")
+    public String Orders(@PathVariable(value = "page") Long page, @RequestHeader("Authorization") String token) throws JSONException{
+        List<Orders> orders = ordersRepository.findAll();
+        JSONObject json = new JSONObject();
+        json.put("page", page);
+        int startIndex = (int) (elInPage * page - elInPage);
+        int endIndex = Math.min((int) (elInPage * page), orders.size()); // Учитываем, что последняя страница может иметь меньше элементов
+        json.put("maxPage", ((orders.size()%elInPage == 0 )? orders.size()/elInPage : orders.size()/elInPage + 1));
+        json.put("orders", orders.subList(startIndex, endIndex).toArray());
+        String message = json.toString();
+        //System.out.println(message);
+        return message;
+    }
+
+    @GetMapping("/orders/processed/{page}")
+    @CrossOrigin(origins = "*")
+    public String OrdersProcessed(@PathVariable(value = "page") Long page, @RequestHeader("Authorization") String token) throws JSONException{
+        List<Orders> orders = ordersRepository.findAllByProcessed(true);
+        JSONObject json = new JSONObject();
+        json.put("page", page);
+        int startIndex = (int) (elInPage * page - elInPage);
+        int endIndex = Math.min((int) (elInPage * page), orders.size()); // Учитываем, что последняя страница может иметь меньше элементов
+        json.put("maxPage", ((orders.size()%elInPage == 0 )? orders.size()/elInPage : orders.size()/elInPage + 1));
+        json.put("orders", orders.subList(startIndex, endIndex).toArray());
+        String message = json.toString();
+        //System.out.println(message);
+        return message;
+    }
+
+    @GetMapping("/orders/unprocessed/{page}")
+    @CrossOrigin(origins = "*")
+    public String OrdersUnprocessed(@PathVariable(value = "page") Long page, @RequestHeader("Authorization") String token) throws JSONException{
+        List<Orders> orders = ordersRepository.findAllByProcessed(false);
+        JSONObject json = new JSONObject();
+        json.put("page", page);
+        int startIndex = (int) (elInPage * page - elInPage);
+        int endIndex = Math.min((int) (elInPage * page), orders.size()); // Учитываем, что последняя страница может иметь меньше элементов
+        json.put("maxPage", ((orders.size()%elInPage == 0 )? orders.size()/elInPage : orders.size()/elInPage + 1));
+        json.put("orders", orders.subList(startIndex, endIndex).toArray());
+        String message = json.toString();
+        //System.out.println(message);
         return message;
     }
 }
+

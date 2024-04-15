@@ -34,7 +34,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/", "/query", "/goods/**", "/product/**", "/reg", "/login", "/categories", "/ads/**", "/ad/**")// Указанное здесь будет доступно для всех пользователей
                     .permitAll()
                     .requestMatchers( "/users/**").hasRole("ADMIN")
-                    .requestMatchers("/add/**", "/order/changeProcessed", "/goods/changeActive", "/orders").hasAnyRole("ADMIN", "MODER")
+                    .requestMatchers("/add/**", "/order/changeProcessed", "/goods/changeActive", "/orders/**").hasAnyRole("ADMIN", "MODER")
                     .anyRequest()
                     .authenticated()
                 .and()

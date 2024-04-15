@@ -81,7 +81,7 @@ public class CartController {
         else json.put("isAddress", true);
 
         message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
         return message;
     }
     
@@ -119,7 +119,7 @@ public class CartController {
         userRepository.save(user);
         json.put("order_id", order.getId());
         String message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
         return message;
     }
 }

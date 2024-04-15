@@ -20,6 +20,7 @@ import Payment from "./elements/pages/Payment";
 import Order from "./elements/pages/Order";
 import MyOrders from "./elements/pages/MyOrders";
 import AddAddress from "./elements/pages/AddAddress";
+import Orders from "./elements/pages/Orders";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/goods" element={Goods()}/>
         <Route path="/goods/query/:id" element={Query()}/>
         <Route path="/product/:id" element={Product()}/>
+        <Route path="/edit/product/:id" element={AddProduct()}/>
         <Route path="/add/product" element={AddProduct()}/>
         <Route path="/reg" element={Reg()}/>
         <Route path="/login" element={Login()}/>
@@ -43,11 +45,15 @@ function App() {
         <Route path="/ads" element={Ads()}/>
         <Route path="/ad/:id" element={Ad()}/>
         <Route path="/add/ad" element={AddAd()}/>
+        <Route path="/edit/ad" element={AddAd()}/>
         <Route path="/payment" element={Payment()}/>
         <Route path="/order/:id" element={Order()}/>
         <Route path="/myorders" element={MyOrders()}/>
         <Route path="/add/address" element={AddAddress()}/>
         <Route path="/edit/address" element={AddAddress()}/>
+        <Route path="/orders" element={Orders()}/>
+        <Route path="/orders/processed" element={Orders()}/>
+        <Route path="/orders/unprocessed" element={Orders()}/>
       </Routes>
     </div>
   );

@@ -10,6 +10,9 @@ function AddAd(){
     const [img, setImg] = useState();
     const [str, setStr] = useState();
     const [price, setPrice] = useState();
+    const [communications, setCommunications] = useState();
+    const location = useLocation();
+    const url = location.pathname;
 
     useEffect(() => {
         async function fetchData(url) {
@@ -25,9 +28,11 @@ function AddAd(){
           };
           axios.request(config).then(response => {
               console.log(response.data);
-              setImg();
-              setStr();
-              setPrice();
+              setTitle(response.data.title);
+              setImg(response.data.image);
+              setStr(response.data.str);
+              setPrice(response.data.price);
+              setCommunications(response.data.communications);
             })
             .catch(error => {
               console.log(error.config);
@@ -63,7 +68,7 @@ function AddAd(){
         <div>
             
             <form class="my-form">
-                Создание объявления
+                {"/edit/ad" != url ? "Создание объявления": "Редактирование объявления"}
                 <input type="text" required
                     name="title" placeholder="Введите название"
                     class="form-control" value={title} onInput={e => setTitle(e.target.value)} autocomplete="off"/><br/>
@@ -75,12 +80,15 @@ function AddAd(){
                 <input type="number"
                     name="img" placeholder="Введите цену"
                     class="form-control" value={price} onInput={e => setPrice(e.target.value)} autocomplete="off"/><br/>
+                <textarea name="communications" required placeholder="Введите как с вами можно связаться"
+                    class="form-control" value={communications} onInput={e => setCommunications(e.target.value)}></textarea><br/>
                 <button class="my-button" onClick={() => post({
                     'title': title,
                     'img': img,
                     'str': str,
-                    'price': price
-                })}>Выставить объявление</button>
+                    'price': price,
+                    'communications': communications
+                })}>{"/edit/ad" != url ? "Выставить объявление": "Сохранить изменения"}</button>
             </form>
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import {unstable_usePrompt, useLocation} from "react-router-dom";
+import {Link, unstable_usePrompt, useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/goods.css"
 import noImg from "./images/no.png"
@@ -86,7 +86,7 @@ function Ad(){
             </div>
             <div class="pricing-header p-3 pb-md-4 mx-auto text-justify p-end">
               <p class="fs-5 text-muted mb-1" >Цена: {ad.price}</p>
-              {/* {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? (<Link class="btn btn-success" to={`/update/${ad.id}`}>Редактировать</Link>): null}<br/> */}
+              <p class="fs-5 text-muted mb-1" >Как со мной сзязаться: {ad.communications}</p>
               {
                 (isMy || page.access_level == 2) && ad.active ? 
                 <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(adId)}>Убрать из поиска</button>: null
@@ -94,7 +94,11 @@ function Ad(){
               {
                 (isMy || page.access_level == 2) && !ad.active ? 
                 <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(adId)}>Вернуть в поиск</button>: null
-              }<br/>
+              }
+              {
+                isMy ? 
+                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => window.location.replace("/edit/ad")}>Редактировать</button>: null
+              }<br/><br/>
             </div>
           </div>
           ))

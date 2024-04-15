@@ -104,7 +104,7 @@ function Product(){
                   null
                 }
               </h5>
-              {product.img ? (<img src={product.img} alt="Тут должна быть картинка, но её нет"/>): 
+              {product.image ? (<img src={product.image} alt="Тут должна быть картинка, но её нет"/>): 
                 (<img src={noImg} alt="Тут должна быть картинка, но её нет"/>)
               }
               <p class="fs-5 text-muted p-1">{product.description}</p>
@@ -115,11 +115,19 @@ function Product(){
               {/* {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? (<Link class="btn btn-success" to={`/update/${product.id}`}>Редактировать</Link>): null}<br/> */}
               {
                 page.access_level == 2  && product.active ? 
-                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(productId)}>Удалить</button>: null
+                <>
+                  <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(productId)}>Удалить</button>
+                  <button type='button' class="my_button py-2 text-dark text-decoration-none" onClick={() => window.location.replace(`/edit/product/${productId}`)}>Редактировать</button>
+                </>
+                : null
               }<br/>
               {
                 page.access_level == 2  && !product.active ? 
-                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(productId)}>Вернуть в поиск</button>: null
+                <>
+                  <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(productId)}>Вернуть в поиск</button>
+                  <button type='button' class="my_button py-2 text-dark text-decoration-none" onClick={window.location.replace(`/edit/product/${productId}`)}>Редактировать</button>
+                </>
+                : null
               }<br/>
               {
                 page.access_level >= 0 && !isCart ? 

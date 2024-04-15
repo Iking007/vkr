@@ -5,7 +5,7 @@
     margin-right: 0;
     margin-left: auto;
     padding: 1%;
-    width: 40vw;
+    max-width: 40vw;
 }
 .link_profile{
     margin-top: 8px;

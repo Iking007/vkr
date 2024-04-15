@@ -55,14 +55,25 @@ public class GoodsController {
     @PostMapping("/add/product")
     @CrossOrigin(origins = "*")
     public void addProduct(@RequestBody GoodsRequest request){
-        Goods product = Goods.builder()
-            .title(request.getTitle())
-            .category(categoryRepository.findById(request.getCategory_id()).get())
-            .image(request.getImg())
-            .active(true)
-            .description(request.getStr())
-            .price(request.getPrice()).build();
-        goodsRepository.save(product);
+        if (request.getId() == null){
+            Goods product = Goods.builder()
+                .title(request.getTitle())
+                .category(categoryRepository.findById(request.getCategory_id()).get())
+                .image(request.getImg())
+                .active(true)
+                .description(request.getStr())
+                .price(request.getPrice()).build();
+            goodsRepository.save(product);
+        }
+        else {
+            Goods product = goodsRepository.findById(request.getId()).get();
+            product.setTitle(request.getTitle());
+            product.setCategory(categoryRepository.findById(request.getCategory_id()).get());
+            product.setImage(request.getImg());
+            product.setDescription(request.getStr());
+            product.setPrice(request.getPrice());
+            goodsRepository.save(product);
+        }
         return;
     }
 
@@ -124,6 +135,23 @@ public class GoodsController {
         json.put("maxPage", ((goods.size()%elInPage == 0 )? goods.size()/elInPage : goods.size()/elInPage + 1));
         json.put("goods", Arrays.copyOfRange(goods.toArray(), elInPage*page-elInPage, ((goods.size() <= elInPage*page) ? goods.size() : elInPage*page)));
         message = json.toString();
+        //System.out.println(message);
+        return message;
+    }
+
+    @GetMapping("/edit/product/{id}")
+    @CrossOrigin(origins = "*")
+    public String GetProduct(@PathVariable(value = "id") Long product_id, @RequestHeader(value="Authorization") String token) throws JSONException{
+        Goods product = goodsRepository.findById(product_id).get();
+        JSONObject json = new JSONObject();
+        json.put("id", product.getId());
+        json.put("title", product.getTitle());
+        json.put("category", product.getCategory().getId());
+        json.put("image", product.getImage());
+        json.put("str", product.getDescription());
+        json.put("price", product.getPrice());
+        json.put("categoryTitle", product.getCategory().getTitle());
+        String message = json.toString();
         //System.out.println(message);
         return message;
     }

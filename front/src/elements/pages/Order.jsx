@@ -75,7 +75,7 @@ function Order(){
                         
                         {page.order[0].goods_orders.map(goods_order => (
                             <Link to={`/product/${goods_order.product.id}`} class="my-product">
-                                {goods_order.product.img ? (<img src={goods_order.product.img} alt="Тут должна быть картинка, но её нет"/>): 
+                                {goods_order.product.image ? (<img src={goods_order.product.image} alt="Тут должна быть картинка, но её нет"/>): 
                                     (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
                                 }
                                 <div class="my-str"><p class="my-title">{goods_order.product.title}</p> <p class="my-des">{goods_order.product.description}</p></div>

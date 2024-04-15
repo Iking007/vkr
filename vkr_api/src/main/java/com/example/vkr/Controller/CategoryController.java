@@ -45,7 +45,7 @@ public class CategoryController {
             }
         }
         message = json.toString();
-        System.out.println(message);
+        //System.out.println(message);
         return message;
     }
     

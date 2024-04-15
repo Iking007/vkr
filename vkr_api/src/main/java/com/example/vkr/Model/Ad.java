@@ -21,7 +21,7 @@ public class Ad {
     @Column(columnDefinition="text")
     String description;
 
-    String telegram;
+    String communications;
 
     Boolean active;
 

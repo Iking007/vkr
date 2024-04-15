@@ -14,4 +14,5 @@ public class AdRequest {
     private String img;
     private String str;
     private double price;
+    private String communications;
 }
