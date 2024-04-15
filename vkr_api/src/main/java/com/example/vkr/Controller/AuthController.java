@@ -65,7 +65,7 @@ public class AuthController {
         String message;
         //  System.out.println(token);
         token = token.substring(7,token.length());
-        System.out.println(token);
+        //System.out.println(token);
         User user = tokenRepository.findByToken(token).get().getUser();
 
         if(user.getRole().name() == "ADMIN"){ // Проверка роли пользователя
@@ -84,7 +84,10 @@ public class AuthController {
         jsonUser.put("surname", user.getSurname());
         jsonUser.put("role", user.getRole());
         jsonUser.put("email", user.getEmail());
-        jsonUser.put("ad", user.getAd().getId());
+        if (user.getAd() != null)
+            jsonUser.put("ad", user.getAd().getId());
+        if (user.getAddress() != null)
+            jsonUser.put("address", user.getAddress().getId());
         json.put("user", jsonUser);
         //System.out.println(user.getName());
         message = json.toString();

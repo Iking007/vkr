@@ -25,6 +25,8 @@ public class Orders {
     @JoinTable(name="goods_orders")
     List<Product_order> goods_orders;
 
+    String address;
+
     private double price;
 
 }

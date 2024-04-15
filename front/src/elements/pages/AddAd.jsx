@@ -11,6 +11,33 @@ function AddAd(){
     const [str, setStr] = useState();
     const [price, setPrice] = useState();
 
+    useEffect(() => {
+        async function fetchData(url) {
+          let controller = new AbortController();
+          let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://${address}:8080/edit/ad`,
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          };
+          axios.request(config).then(response => {
+              console.log(response.data);
+              setImg();
+              setStr();
+              setPrice();
+            })
+            .catch(error => {
+              console.log(error.config);
+            })
+          return controller.abort();
+        }
+        if ("/edit/ad" == url){
+          fetchData(url)};
+    },["/edit/ad" == url ? true: false]);
+
     const post = (data = {}) => {
         console.log(data);
         let config = {
@@ -34,8 +61,9 @@ function AddAd(){
       };
     return(
         <div>
-            Создание объявления
-            <form>
+            
+            <form class="my-form">
+                Создание объявления
                 <input type="text" required
                     name="title" placeholder="Введите название"
                     class="form-control" value={title} onInput={e => setTitle(e.target.value)} autocomplete="off"/><br/>

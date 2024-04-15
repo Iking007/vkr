@@ -42,7 +42,8 @@ function Profile(){
           {page.user && !loading ? 
             (<div class="d-flex profile">
               <div>
-                <h2>{page.user.name}</h2>
+              <h2>{page.user.name}</h2>
+              <h2>{page.user.surname}</h2>
                 <h3>Ваша роль: {page.user.role}</h3>
               </div>
               <ul class="buttons_profile">
@@ -65,6 +66,14 @@ function Profile(){
                   ): 
                   (
                     <li><Link to={`/ad/`+ page.user.ad} class="text-dark text-decoration-none link_profile">Моё объявление</Link></li>
+                  )
+                }
+                {page.user.address == null? 
+                  (
+                    <li><Link to="/add/address" class="text-dark text-decoration-none link_profile">Добавить адрес</Link></li>
+                  ): 
+                  (
+                    <li><Link to={`/edit/address`} class="text-dark text-decoration-none link_profile">Редактировать адрес</Link></li>
                   )
                 }
                 <li><Link to="/myorders" class="text-dark text-decoration-none link_profile">Заказы</Link></li>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.vkr.Model.Ad;
+import com.example.vkr.Model.Address;
 import com.example.vkr.Model.User;
 import com.example.vkr.Repository.AdRepository;
 import com.example.vkr.Repository.UserRepository;
@@ -89,4 +90,22 @@ public class AdController {
         message = json.toString();
         return message;
     }
+
+    @GetMapping("/edit/ad")
+    @CrossOrigin(origins = "*")
+    public String GetAddress(@RequestHeader(value="Authorization") String token) throws JSONException{
+        token = token.substring(7,token.length());
+        User user = tokenRepository.findByToken(token).get().getUser();
+        Ad ad = user.getAd();
+        JSONObject json = new JSONObject();
+        json.put("image", ad.getImage());
+        json.put("title", ad.getTitle());
+        json.put("str", ad.getDescription());
+        json.put("price", ad.getPrice());
+        json.put("communication", ad.getTelegram());
+        String message = json.toString();
+        System.out.println(message);
+        return message;
+    }
+    
 }

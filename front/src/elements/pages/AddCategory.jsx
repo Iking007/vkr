@@ -14,7 +14,7 @@ function AddCategory(){
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `http://${address}:8080/addcategory`,
+          url: `http://${address}:8080/add/category`,
           headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -32,14 +32,14 @@ function AddCategory(){
       };
     return(
         <div>
-            Добавление Категории
-            <form>
+            <form class="my-form">
+            <p>Добавление Категории</p>
                 <input type="text" required
                     name="title" placeholder="Введите Название"
                     class="form-control" value={title} onInput={e => setTitle(e.target.value)} autocomplete="off"/><br/>
                 <textarea name="str" required placeholder="Введите Описание"
                         class="form-control" value={str} onInput={e => setStr(e.target.value)}></textarea><br/>
-                <button class="my-button" onClick={() => post({
+                <button class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => post({
                     'title': title,
                     'str': str
                 })}>Добавить Категорию</button>

@@ -49,7 +49,7 @@ public class CategoryController {
         return message;
     }
     
-    @PostMapping("/addcategory")
+    @PostMapping("/add/category")
     @CrossOrigin(origins = "*")
     public String AddCategory(@RequestBody CategoryRequest request){
         Category category = Category.builder().title(request.getTitle()).description(request.getStr()).build();

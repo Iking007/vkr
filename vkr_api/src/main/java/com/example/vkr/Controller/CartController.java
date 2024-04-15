@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import com.example.vkr.Model.Cart;
 import com.example.vkr.Model.Product_order;
@@ -70,10 +71,15 @@ public class CartController {
     @GetMapping("/mycart")
     public String MyCart(@RequestHeader("Authorization") String token) throws JSONException{
         token = token.substring(7,token.length());
-        List<Cart> carts = tokenRepository.findByToken(token).get().getUser().getCarts();
+        User user = tokenRepository.findByToken(token).get().getUser();
+        List<Cart> carts = user.getCarts();
         String message = "";
         JSONObject json = new JSONObject();
         json.put("carts", carts.toArray());
+
+        if(user.getAddress() == null) json.put("isAddress", false); // проверка на наличие адреса
+        else json.put("isAddress", true);
+
         message = json.toString();
         System.out.println(message);
         return message;
@@ -83,7 +89,13 @@ public class CartController {
     public String Payment(@RequestHeader("Authorization") String token) throws JSONException{
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
-        Orders order = Orders.builder().goods_orders(new ArrayList<>()).price(0).processed(false).build();
+        if(user.getAddress() == null) return "";
+        Orders order = Orders.builder()
+            .goods_orders(new ArrayList<>())
+            .price(0)
+            .processed(false)
+            .address(user.getAddress().getCity() + " " + user.getAddress().getStreet() + " " + user.getAddress().getHome() + " " + user.getAddress().getFlat())
+            .build();
         
         user.getCarts().forEach((cart) -> {
             Product_order goods_order = Product_order.builder()

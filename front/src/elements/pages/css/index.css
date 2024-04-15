@@ -21,3 +21,10 @@
     top: -20px;
     left: 10%;
 }
+.my-form{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90vh;
+    align-items: center;
+    text-align: center;
+}

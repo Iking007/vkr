@@ -89,11 +89,11 @@ function Ad(){
               {/* {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? (<Link class="btn btn-success" to={`/update/${ad.id}`}>Редактировать</Link>): null}<br/> */}
               {
                 (isMy || page.access_level == 2) && ad.active ? 
-                <button type='button' class="btn btn-success my-sm-3" onClick={() => changeActiv(adId)}>Удалить</button>: null
+                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(adId)}>Убрать из поиска</button>: null
               }<br/>
               {
                 (isMy || page.access_level == 2) && !ad.active ? 
-                <button type='button' class="btn btn-success my-sm-3" onClick={() => changeActiv(adId)}>Вернуть в поиск</button>: null
+                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(adId)}>Вернуть в поиск</button>: null
               }<br/>
             </div>
           </div>

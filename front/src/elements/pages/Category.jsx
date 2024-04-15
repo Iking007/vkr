@@ -44,7 +44,6 @@ function Category(){
         {page.categories && !loading ? 
           (
             <div>
-              {page.access_level == 2 ? <h4>При удалении удалятся и все книги жанра</h4>: null}
               <div class="my-category">
                 {page.categories.map(category => (
                   <div>

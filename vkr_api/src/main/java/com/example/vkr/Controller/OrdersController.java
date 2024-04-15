@@ -50,7 +50,7 @@ public class OrdersController {
                 .anyMatch(obj -> obj.equals(order));
             json.put("isMy", isMy);
         }
-        //System.out.println(json);
+        System.out.println(json);
         String message = json.toString();
         return message;
 

@@ -2,4 +2,10 @@
     display: flex;
     border-radius: 10px;
     border: 2px solid #f75500;
+    text-decoration: none;
+    color: black;
+}
+.my-order *{
+    list-style-type: none;
+    margin-left: 10px; 
 }

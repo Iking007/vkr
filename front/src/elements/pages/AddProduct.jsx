@@ -57,8 +57,9 @@ function AddProduct(){
     };
     return(
         <div>
-            Добавление товара
-            <form>
+            
+            <form class="my-form">
+                Добавление товара
                 <input type="text" required
                     name="title" placeholder="Введите название"
                     class="form-control" value={title} onInput={e => setTitle(e.target.value)} autocomplete="off"/><br/>

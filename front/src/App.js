@@ -19,6 +19,7 @@ import AddAd from "./elements/pages/AddAd";
 import Payment from "./elements/pages/Payment";
 import Order from "./elements/pages/Order";
 import MyOrders from "./elements/pages/MyOrders";
+import AddAddress from "./elements/pages/AddAddress";
 
 function App() {
   return (
@@ -45,6 +46,8 @@ function App() {
         <Route path="/payment" element={Payment()}/>
         <Route path="/order/:id" element={Order()}/>
         <Route path="/myorders" element={MyOrders()}/>
+        <Route path="/add/address" element={AddAddress()}/>
+        <Route path="/edit/address" element={AddAddress()}/>
       </Routes>
     </div>
   );

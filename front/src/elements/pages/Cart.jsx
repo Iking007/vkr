@@ -55,9 +55,13 @@ function Cart(){
                                     <div class="my-buttons"><p class="my-title">Цена: {cart.goods.price}</p></div>
                                 </Link>
                             ))}
-                         
-                        К оплате: {page.carts.reduce((a,item) => a = a + item.goods.price, 0)} 
-                        <Link to={`/payment`}><button type='button' class="my_button me-3 py-2 text-dark text-decoration-none">Оплатить</button></Link>
+                        
+                        К оплате: {page.carts.reduce((a,item) => a = a + item.goods.price, 0)}
+                        { page.isAddress ?
+                            <Link to={`/payment`}><button type='button' class="my_button me-3 py-2 text-dark text-decoration-none">Оплатить</button></Link>
+                            : <p>У вас нет адреса для доствки</p>
+                        } 
+                        
                     </div>
                     : "В козрине пусто"
                     }

@@ -7,6 +7,7 @@ import address from '../..';
 function Reg(){
     const [error, setError] = useState(false);
     const [name, setName] = useState([]);
+    const [surname, setSurname] = useState([]);
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
     // const params = new URLSearchParams(location.search);
@@ -43,6 +44,10 @@ function Reg(){
                 <input required type="text" name="name" class="form-control" value={name} onInput={e => setName(e.target.value)} id="floatingName"/>
                 <label for="floatingName">Имя</label>
             </div>
+            <div class="form-floating">
+            <input required type="text" name="surname" class="form-control" value={surname} onInput={e => setSurname(e.target.value)} id="floatingName"/>
+                <label for="floatingName">Фамилия</label>
+            </div>            
             <div class="form-floating" >
                 <input required type="email" name="email" class="form-control" value={email} onInput={e => setEmail(e.target.value)} placeholder="name@example.com"/>
                 <label for="floatingInput">Ваша действующая почта</label>
@@ -52,7 +57,7 @@ function Reg(){
                 <label for="floatingPassword">Пароль</label>
             </div>
             {error == true ? <p>Ошибка регистрации, вероятно такой пользоватеть уже существует</p>: null}
-            <Link class="w-100 btn btn-lg btn-primary" onClick={() =>post({'name': name, "email": email, "password": password})}>Зарегистрироваться</Link>
+            <Link class="w-100 btn btn-lg btn-primary" onClick={() =>post({'name': name, "surname": surname, "email": email, "password": password})}>Зарегистрироваться</Link>
         </form>
     </div>
     )
