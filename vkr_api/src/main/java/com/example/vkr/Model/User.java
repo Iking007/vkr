@@ -42,7 +42,7 @@ public class User implements UserDetails {
     @OneToMany
     private List<Cart> carts;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "Orders_user")
     private List<Orders> orders;
 

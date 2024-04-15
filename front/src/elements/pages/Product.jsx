@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react'
 import {useLocation} from "react-router-dom";
 import axios from 'axios'
 import "./css/goods.css"
+import "../blooks/header.css"
 import noImg from "./images/no.png"
 import address from '../..';
 
@@ -74,7 +75,7 @@ function Product(){
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: `http://${address}:8080/goods/changeActiv?product_id=${id}`,
+      url: `http://${address}:8080/goods/changeActive?product_id=${id}`,
       headers: { 
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -114,19 +115,19 @@ function Product(){
               {/* {(localStorage.role == "MODER" || localStorage.role == "ADMIN") ? (<Link class="btn btn-success" to={`/update/${product.id}`}>Редактировать</Link>): null}<br/> */}
               {
                 page.access_level == 2  && product.active ? 
-                <button type='button' class="btn btn-success my-sm-3" onClick={() => changeActiv(productId)}>Удалить</button>: null
+                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(productId)}>Удалить</button>: null
               }<br/>
               {
                 page.access_level == 2  && !product.active ? 
-                <button type='button' class="btn btn-success my-sm-3" onClick={() => changeActiv(productId)}>Вернуть в поиск</button>: null
+                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(productId)}>Вернуть в поиск</button>: null
               }<br/>
               {
                 page.access_level >= 0 && !isCart ? 
-                <button type='button' class="btn btn-success my-sm-3" onClick={() => post({'product_id': productId, "add": true})}>Добавить в корзину</button>: null
+                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => post({'product_id': productId, "add": true})}>Добавить в корзину</button>: null
               }   
               {
                 page.access_level >= 0 && isCart ? 
-                <button type='button' class="btn btn-success my-sm-3" onClick={() => post({'product_id': productId, "add": false})}>Удалить из корзины</button>: null
+                <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => post({'product_id': productId, "add": false})}>Удалить из корзины</button>: null
               }
             </div>
           </div>

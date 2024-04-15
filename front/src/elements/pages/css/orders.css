@@ -1,0 +1,5 @@
+.my-order{
+    display: flex;
+    border-radius: 10px;
+    border: 2px solid #f75500;
+}

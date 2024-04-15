@@ -22,12 +22,12 @@ function Category(){
         }
     }
     if (localStorage.token != null) {config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`};
-    async function fetchData(url) {
+    async function fetchData() {
       
       axios.request(config).then(response => {
           console.log(response.data);
           setPage(response.data);
-          
+
           setLoading(false);// Отключение загрузки
         })
         .catch(error => {
@@ -35,8 +35,8 @@ function Category(){
         })
     }
     if ("/categories" == url) {
-    fetchData(url)};
-    return controller.abort
+    fetchData()};
+    return () => controller.abort
     },["/categories" == url ? true: false]);
     
     return(

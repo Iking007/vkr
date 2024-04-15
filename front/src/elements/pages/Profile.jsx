@@ -67,6 +67,13 @@ function Profile(){
                     <li><Link to={`/ad/`+ page.user.ad} class="text-dark text-decoration-none link_profile">Моё объявление</Link></li>
                   )
                 }
+                <li><Link to="/myorders" class="text-dark text-decoration-none link_profile">Заказы</Link></li>
+                {page.access_level == 2 ? 
+                  (<>
+                    <li><Link to="/orders" class="text-dark text-decoration-none link_profile">Заказы пользователей</Link></li>
+                  </>): 
+                  null
+                }
               </ul>
               
             </div>

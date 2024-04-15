@@ -1,6 +1,11 @@
 package com.example.vkr.Controller;
 
+import static org.mockito.Mockito.never;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.vkr.Model.Cart;
+import com.example.vkr.Model.Product_order;
+import com.example.vkr.Model.Orders;
 import com.example.vkr.Model.User;
 import com.example.vkr.Repository.CartRepository;
 import com.example.vkr.Repository.GoodsRepository;
+import com.example.vkr.Repository.Goods_orderRepository;
+import com.example.vkr.Repository.OrdersRepository;
 import com.example.vkr.Repository.UserRepository;
 import com.example.vkr.Requests.CartRequest;
 import com.example.vkr.Token.TokenRepository;
@@ -29,6 +38,10 @@ public class CartController {
     UserRepository userRepository;
     @Autowired
     CartRepository cartRepository;
+    @Autowired
+    OrdersRepository ordersRepository;
+    @Autowired
+    Goods_orderRepository goods_orderRepository;
 
     @PostMapping("/cart")
     public void NewOrDelCart(@RequestBody CartRequest request, @RequestHeader("Authorization") String token){
@@ -53,6 +66,7 @@ public class CartController {
             cartRepository.delete(cart);
         }
     }
+    
     @GetMapping("/mycart")
     public String MyCart(@RequestHeader("Authorization") String token) throws JSONException{
         token = token.substring(7,token.length());
@@ -61,6 +75,38 @@ public class CartController {
         JSONObject json = new JSONObject();
         json.put("carts", carts.toArray());
         message = json.toString();
+        System.out.println(message);
+        return message;
+    }
+    
+    @PostMapping("/payment")
+    public String Payment(@RequestHeader("Authorization") String token) throws JSONException{
+        token = token.substring(7,token.length());
+        User user = tokenRepository.findByToken(token).get().getUser();
+        Orders order = Orders.builder().goods_orders(new ArrayList<>()).price(0).processed(false).build();
+        
+        user.getCarts().forEach((cart) -> {
+            Product_order goods_order = Product_order.builder()
+            .product(cart.getGoods())
+            .price(cart.getGoods().getPrice())
+            .quantity(cart.getQuantity()).build();
+            order.getGoods_orders().add(goods_order);
+            System.out.print(order.getGoods_orders().toString());
+            goods_orderRepository.save(goods_order);
+
+        });
+        double price = order.getGoods_orders().stream().filter(Objects::nonNull).mapToDouble(o -> o.getPrice()).sum();
+        JSONObject json = new JSONObject();
+        order.setPrice(price);
+        ordersRepository.save(order);
+        user.getOrders().add(order);
+        List<Cart> carts = new ArrayList<>();
+        carts = user.getCarts();
+        user.getCarts().clear();
+        cartRepository.deleteAll(carts);
+        userRepository.save(user);
+        json.put("order_id", order.getId());
+        String message = json.toString();
         System.out.println(message);
         return message;
     }

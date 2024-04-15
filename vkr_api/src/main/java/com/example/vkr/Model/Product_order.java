@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Goods_order {
+public class Product_order {
     @Id
     @GeneratedValue
     @PrimaryKeyJoinColumn
@@ -19,12 +19,8 @@ public class Goods_order {
 
     @ManyToOne
     @JoinColumn(name = "id_goods")
-    Goods goods;
-
-    @ManyToOne
-    @JoinColumn(name = "id_order")
-    Orders order;
-
+    Goods product;
+    
     int quantity;
 
     double price;

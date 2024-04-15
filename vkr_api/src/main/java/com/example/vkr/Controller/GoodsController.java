@@ -66,9 +66,9 @@ public class GoodsController {
         return;
     }
 
-    @PostMapping("/goods/changeActiv")
+    @PostMapping("/goods/changeActive")
     @CrossOrigin(origins = "*")
-    public void delbook(@RequestParam Long product_id, @RequestHeader(value="Authorization") String token){
+    public void ChangeActive(@RequestParam Long product_id, @RequestHeader(value="Authorization") String token){
         token = token.substring(7,token.length());
         String [] roles = {"MODER", "ADMIN"};
         if(Arrays.asList(roles).contains(tokenRepository.findByToken(token).get().getUser().getRole().name())){ // Проверка роли пользователя

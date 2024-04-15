@@ -27,12 +27,13 @@ function Cart(){
             axios.request(config).then(response => {
                 console.log(response.data);
                 setPage(response.data)
-
+            
                 setLoading(false);// Отключение загрузки
               })
               .catch(error => {
                 console.log(error.config);
               })
+           
             return controller.abort();
           }
     if ("/mycart" == url){
@@ -41,10 +42,12 @@ function Cart(){
     return(
         <div>
             {page.carts && !loading ? 
-                (
+                (<>
+                    {page.carts.length > 0 ?
                     <div class="my-row">
                             {page.carts.map(cart => (
                                 <Link to={`/product/${cart.goods.id}`} class="my-product">
+                                    
                                     {cart.goods.img ? (<img src={cart.goods.img} alt="Тут должна быть картинка, но её нет"/>): 
                                         (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
                                     }
@@ -52,8 +55,13 @@ function Cart(){
                                     <div class="my-buttons"><p class="my-title">Цена: {cart.goods.price}</p></div>
                                 </Link>
                             ))}
+                         
+                        К оплате: {page.carts.reduce((a,item) => a = a + item.goods.price, 0)} 
+                        <Link to={`/payment`}><button type='button' class="my_button me-3 py-2 text-dark text-decoration-none">Оплатить</button></Link>
                     </div>
-                ): 
+                    : "В козрине пусто"
+                    }
+                </>): 
                 (
                     <>Loading...</>
                 )
