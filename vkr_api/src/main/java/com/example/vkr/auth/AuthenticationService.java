@@ -44,6 +44,7 @@ public class AuthenticationService {
         if (request.getRole() != null) {role = request.getRole();}
         var savedUser = User.builder()
                 .name(request.getName())
+                .surname(request.getSurname())
                 .active(true)
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))

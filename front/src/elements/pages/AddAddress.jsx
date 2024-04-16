@@ -43,27 +43,25 @@ function AddAddress(){
 },["/edit/address" == url ? true: false]);
 
     const post = (data = {}) => {
-        console.log(data);
-        let config = {
-          method: 'post',
-          maxBodyLength: Infinity,
-          url: `http://${address}:8080/addaddress`,
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          data: data
-        };
-        window.location.href = "/prof"
-        axios.request(config).then(response => {
-            //console.log(response.data);
-            
-            //console.log(response.data);
-          })
-          .catch(error => {
-            console.log(error.config);
-        })
+      console.log(data);
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `http://${address}:8080/addaddress`,
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        data: data
       };
+      
+      axios.request(config).then(response => {
+        window.location.href = "/prof";
+        })
+        .catch(error => {
+          console.log(error.config);
+      })
+    };
     return(
         <div> 
           <form class="my-form">
@@ -80,12 +78,14 @@ function AddAddress(){
               <input type="num" 
                 name="home" placeholder="Введите номер квартиры"
                 class="form-control" value={flat} onInput={e => setFlat(e.target.value)} autocomplete="off"/><br/>
-            <button class="my-button" onClick={() => post({
+            <button class="my-button" onClick={(e) => {
+                e.preventDefault(); // предотвращаем стандартное поведение формы
+                post({
                 'city': city,
                 'street': street,
                 'home': home,
                 'flat': flat
-            })}>{"/edit/address" != url ? "Добавить Адрес": "Сохранить изменения"}</button>
+            })}}>{"/edit/address" != url ? "Добавить Адрес": "Сохранить изменения"}</button>
           </form>
         </div>
     )

@@ -48,7 +48,7 @@ function AddAd(){
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `http://${address}:8080/add/ad`,
+          url: `http://${address}:8080/addad`,
           headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -82,13 +82,15 @@ function AddAd(){
                     class="form-control" value={price} onInput={e => setPrice(e.target.value)} autocomplete="off"/><br/>
                 <textarea name="communications" required placeholder="Введите как с вами можно связаться"
                     class="form-control" value={communications} onInput={e => setCommunications(e.target.value)}></textarea><br/>
-                <button class="my-button" onClick={() => post({
+                <button class="my-button" onClick={(e) => {
+                    e.preventDefault(); // предотвращаем стандартное поведение формы
+                    post({
                     'title': title,
                     'img': img,
                     'str': str,
                     'price': price,
                     'communications': communications
-                })}>{"/edit/ad" != url ? "Выставить объявление": "Сохранить изменения"}</button>
+                })}}>{"/edit/ad" != url ? "Выставить объявление": "Сохранить изменения"}</button>
             </form>
         </div>
     )

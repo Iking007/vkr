@@ -50,7 +50,7 @@ function Ad(){
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: `http://${address}:8080/ad/changeActiv?ad_id=${id}`,
+      url: `http://${address}:8080/ad/changeActive`,
       headers: { 
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`

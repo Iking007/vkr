@@ -39,10 +39,12 @@ function AddCategory(){
                     class="form-control" value={title} onInput={e => setTitle(e.target.value)} autocomplete="off"/><br/>
                 <textarea name="str" required placeholder="Введите Описание"
                         class="form-control" value={str} onInput={e => setStr(e.target.value)}></textarea><br/>
-                <button class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => post({
+                <button class="my_button me-3 py-2 text-dark text-decoration-none" onClick={(e) => {
+                e.preventDefault(); // предотвращаем стандартное поведение формы
+                post({
                     'title': title,
                     'str': str
-                })}>Добавить Категорию</button>
+                })}}>Добавить Категорию</button>
             </form>
         </div>
     )

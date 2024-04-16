@@ -18,7 +18,6 @@ function Goods(){
         let controller = new AbortController();
         await axios.get(`http://${address}:8080/goods/` + numPage).then(response => {   
             setPage(response.data);
-
             setLoading(false);// Отключение загрузки
           })
           .catch(error => {
@@ -41,7 +40,11 @@ function Goods(){
                                     {product.image ? (<img src={product.image} alt="Тут должна быть картинка, но её нет"/>): 
                                         (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
                                     }
-                                    <div class="my-str"><p class="my-title">{product.title}</p> <p class="my-des">{product.description}</p></div>
+                                    <div class="my-str">
+                                        <p class="my-title">{product.title}</p>
+                                        <p>Категория:{product.category.title}</p>
+                                        <p class="my-des">{product.description}</p>
+                                    </div>
                                     <div class="my-buttons"><p class="my-title">Цена: {product.price}</p></div>
                                 </Link>
                             ))}

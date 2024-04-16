@@ -4,6 +4,7 @@
     border: 2px solid #f75500;
     text-decoration: none;
     color: black;
+    margin: 10px;
 }
 .my-order *{
     list-style-type: none;

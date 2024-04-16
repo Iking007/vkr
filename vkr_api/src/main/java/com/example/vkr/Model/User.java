@@ -50,12 +50,13 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
-    public User(String email, String password, Role role, String name) {
+    public User(String email, String password, Role role, String name, String surname) {
         this.active = true;
         this.password = password;
         this.email = email;
         this.role = role;
         this.name = name;
+        this.surname = surname;
     }
 
     @Override

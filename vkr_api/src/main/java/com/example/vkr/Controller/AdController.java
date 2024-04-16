@@ -20,6 +20,7 @@ import com.example.vkr.Model.User;
 import com.example.vkr.Repository.AdRepository;
 import com.example.vkr.Repository.UserRepository;
 import com.example.vkr.Requests.AdRequest;
+import com.example.vkr.Requests.QueryRequest;
 import com.example.vkr.Token.TokenRepository;
 
 @RestController
@@ -32,7 +33,7 @@ public class AdController {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping("/add/ad")
+    @PostMapping("/addad")
     @CrossOrigin(origins = "*")
     public void addad(@RequestBody AdRequest request, @RequestHeader("Authorization") String token){
         token = token.substring(7,token.length());
@@ -115,10 +116,39 @@ public class AdController {
         json.put("title", ad.getTitle());
         json.put("str", ad.getDescription());
         json.put("price", ad.getPrice());
-        json.put("communication", ad.getCommunications());
+        json.put("communications", ad.getCommunications());
         String message = json.toString();
         //System.out.println(message);
         return message;
     }
-    
+
+    @PostMapping("/ad/changeActive")
+    @CrossOrigin(origins = "*")
+    public void ChangeActive(@RequestHeader(value="Authorization") String token){
+        token = token.substring(7,token.length());
+        Ad ad = tokenRepository.findByToken(token).get().getUser().getAd();
+        ad.setActive(!ad.getActive());
+        adRepository.save(ad);
+        return;
+    }
+
+    @PostMapping("/ads/query/{page}")
+    @CrossOrigin(origins = "*")
+    public String AdsQuery(@PathVariable(value = "page") int page, @RequestHeader(value="Authorization", required=false) String token, @RequestBody QueryRequest request) throws JSONException{
+        List<Ad> ads = new ArrayList<Ad>();
+        System.out.println(request.getTitle());
+        if(request.getTitle() != null){
+            ads.addAll(adRepository.searchByTitleAndActive(request.getTitle(),true));
+        }
+        else{
+            ads.addAll(adRepository.findAllByActive(true));
+        }
+        JSONObject json = new JSONObject();
+        json.put("page", page);
+        json.put("maxPage", ((ads.size()%elInPage == 0 )? ads.size()/elInPage : ads.size()/elInPage + 1));
+        json.put("ads", Arrays.copyOfRange(ads.toArray(), elInPage*page-elInPage, ((ads.size() <= elInPage*page) ? ads.size() : elInPage*page)));
+        String message = json.toString();
+        //System.out.println(message);
+        return message;
+    }
 }

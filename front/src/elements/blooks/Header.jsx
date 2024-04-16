@@ -1,10 +1,14 @@
 import React, {useState} from 'react'
+import {useLocation} from "react-router-dom";
 import {Link } from "react-router-dom";
 import "./header.css"
 import Logo from "./images/logo.png"
 
+
 function Header(){
     const [isOpen, setOpen] = useState(false)
+    const location = useLocation();
+    const url = location.pathname;
     return(
         <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom my_menu" id="head" sticky="top">
             <Link to="/" class="d-flex align-items-center text-dark text-decoration-none">
@@ -13,7 +17,7 @@ function Header(){
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <div class="menu">
-                    <form class="d-flex" action="/goods/query/1" method="get">
+                    <form class="d-flex" action={url.substring(0,4) != "/ads" ? "/goods/query/1": "/ads/query/1"} method="get">
                         <input type="text" autocomplete="off" name="title" class="me-3 py-2 text-dark text-decoration-none form-control my_input" placeholder="Поиск"/>
                         <button type="submit" class="my_button me-3 py-2 text-dark text-decoration-none">
                             Найти
@@ -33,7 +37,7 @@ function Header(){
                 <div class="dropdown_menu">
                     <button class="button_menu" onClick={() => setOpen(!isOpen)}>МЕНЮ</button>
                     <ul className={isOpen ? "list_menu_open" : "list_menu_close"}>
-                    <form class="d-flex" action="/goods/query/1" method="get">
+                    <form class="d-flex" action={url.substring(0,4) != "/ads" ? "/goods/query/1": "/ads/query/1"} method="get">
                         <input type="text" autocomplete="off" name="title" class="me-3 py-2 text-dark text-decoration-none form-control my_input" placeholder="Поиск"/>
                         <button type="submit" class="my_button me-3 py-2 text-dark text-decoration-none">
                             Найти

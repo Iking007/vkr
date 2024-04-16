@@ -104,13 +104,16 @@ function AddProduct(){
                 <input type="number"
                     name="img" placeholder="Введите цену"
                     class="form-control" value={price} onInput={e => setPrice(e.target.value)} autocomplete="off"/><br/>
-                <button class="my-button" onClick={() => post({
+                <button class="my-button" onClick={(e) => {
+                e.preventDefault(); // предотвращаем стандартное поведение формы
+                post({
                     'title': title,
                     'category_id': category,
                     'img': img,
                     'str': str,
-                    'price': price
-                })}>{"/edit/product" != url.substring(0,13) ? "Добавить товар": "Сохранить изменения"}</button>
+                    'price': price,
+                    'id': id
+                })}}>{"/edit/product" != url.substring(0,13) ? "Добавить товар": "Сохранить изменения"}</button>
             </form>
         </div>
     )

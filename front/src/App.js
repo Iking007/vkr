@@ -1,6 +1,5 @@
 import Header from "./elements/blooks/Header";
 import {Link, Route, Routes } from "react-router-dom";
-// import Goods from "./elements/pages/Goods";
 import Index from "./elements/pages/Index";
 import Query from "./elements/pages/Query";
 import Login from "./elements/pages/Login";
@@ -21,6 +20,7 @@ import Order from "./elements/pages/Order";
 import MyOrders from "./elements/pages/MyOrders";
 import AddAddress from "./elements/pages/AddAddress";
 import Orders from "./elements/pages/Orders";
+import AdsQuery from "./elements/pages/AdsQuery";
 
 function App() {
   return (
@@ -43,6 +43,7 @@ function App() {
         <Route path="/categories" element={Category()}/>
         <Route path="/mycart" element={Cart()}/>
         <Route path="/ads" element={Ads()}/>
+        <Route path="/ads/query/:id" element={AdsQuery()}/>
         <Route path="/ad/:id" element={Ad()}/>
         <Route path="/add/ad" element={AddAd()}/>
         <Route path="/edit/ad" element={AddAd()}/>

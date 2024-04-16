@@ -28,7 +28,7 @@ public class AddressController {
 
     @PostMapping("/addaddress")
     @CrossOrigin(origins = "*")
-    public void AddAddress(@RequestBody AddressRequest request, @RequestHeader(value="Authorization") String token){
+    public String AddAddress(@RequestBody AddressRequest request, @RequestHeader(value="Authorization") String token){
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
         if (user.getAddress() == null) {
@@ -47,6 +47,7 @@ public class AddressController {
             addressRepository.save(address);
             userRepository.save(user);
         }
+        return "null";
     }
 
     @GetMapping("/edit/address")

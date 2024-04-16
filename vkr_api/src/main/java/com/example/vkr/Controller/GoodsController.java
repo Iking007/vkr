@@ -66,6 +66,7 @@ public class GoodsController {
             goodsRepository.save(product);
         }
         else {
+            System.out.print(request.getId());
             Goods product = goodsRepository.findById(request.getId()).get();
             product.setTitle(request.getTitle());
             product.setCategory(categoryRepository.findById(request.getCategory_id()).get());

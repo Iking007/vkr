@@ -43,14 +43,13 @@ function Category(){
         <div>
         {page.categories && !loading ? 
           (
-            <div>
+            <div class="my-categories">
               <div class="my-category">
                 {page.categories.map(category => (
                   <div>
-                  <Link to={`/goods/query/1?category=${category.id}&page=1`}>
+                  <Link to={`/goods/query/1?category=${category.id}&page=1`} class="text-dark text-decoration-none link_profile">
                       <h3>{category.title}</h3>
                   </Link>
-                  {page.access_level == 2  ? <div>❌</div>: null}
                 </div>
                 ))}
               </div>

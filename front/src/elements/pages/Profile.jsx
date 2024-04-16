@@ -91,7 +91,7 @@ function Profile(){
                 <>Loading...</>
             )
           }        
-          <button onClick={exit}>Выйти из аккаунта</button>
+          <button class="my_button me-3 py-2 text-dark text-decoration-none" onClick={exit}>Выйти из аккаунта</button>
         </div>
     )
 }
