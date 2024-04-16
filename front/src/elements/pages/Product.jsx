@@ -130,7 +130,7 @@ function Product(){
                 : null
               }<br/>
               {
-                page.access_level >= 0 && !isCart ? 
+                page.access_level >= 0 && !isCart && page.product[0].active? 
                 <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => post({'product_id': productId, "add": true})}>Добавить в корзину</button>: null
               }   
               {

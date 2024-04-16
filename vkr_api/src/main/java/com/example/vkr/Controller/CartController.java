@@ -94,14 +94,15 @@ public class CartController {
             .build();
         
         user.getCarts().forEach((cart) -> {
-            Product_order goods_order = Product_order.builder()
-            .product(cart.getGoods())
-            .price(cart.getGoods().getPrice())
-            .quantity(cart.getQuantity()).build();
-            order.getGoods_orders().add(goods_order);
-            System.out.print(order.getGoods_orders().toString());
-            goods_orderRepository.save(goods_order);
-
+            if(cart.getGoods().getActive()){
+                Product_order goods_order = Product_order.builder()
+                .product(cart.getGoods())
+                .price(cart.getGoods().getPrice())
+                .quantity(cart.getQuantity()).build();
+                order.getGoods_orders().add(goods_order);
+                System.out.print(order.getGoods_orders().toString());
+                goods_orderRepository.save(goods_order);
+            }
         });
         double price = order.getGoods_orders().stream().filter(Objects::nonNull).mapToDouble(o -> o.getPrice()).sum();
         JSONObject json = new JSONObject();
