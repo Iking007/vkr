@@ -106,6 +106,7 @@ public class CartController {
         });
         double price = order.getGoods_orders().stream().filter(Objects::nonNull).mapToDouble(o -> o.getPrice()).sum();
         JSONObject json = new JSONObject();
+        if(price == 0) return null;
         order.setPrice(price);
         ordersRepository.save(order);
         user.getOrders().add(order);

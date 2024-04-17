@@ -125,7 +125,7 @@ function Product(){
                 page.access_level == 2  && !product.active ? 
                 <>
                   <button type='button' class="my_button me-3 py-2 text-dark text-decoration-none" onClick={() => changeActiv(productId)}>Вернуть в поиск</button>
-                  <button type='button' class="my_button py-2 text-dark text-decoration-none" onClick={window.location.replace(`/edit/product/${productId}`)}>Редактировать</button>
+                  <button type='button' class="my_button py-2 text-dark text-decoration-none" onClick={() => window.location.replace(`/edit/product/${productId}`)}>Редактировать</button>
                 </>
                 : null
               }<br/>
