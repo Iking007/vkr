@@ -27,3 +27,5 @@ public class Goods {
     @ManyToOne
     private Category category;
 }
+
+

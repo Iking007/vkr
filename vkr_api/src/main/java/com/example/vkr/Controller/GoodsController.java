@@ -40,7 +40,8 @@ public class GoodsController {
 
     @GetMapping("/goods/{page}")
     @CrossOrigin(origins = "*")
-    public String pageId(@PathVariable(value = "page") int page, @RequestHeader(value="Authorization", required=false) String token) throws JSONException{
+    public String pageId(@PathVariable(value = "page") int page, 
+        @RequestHeader(value="Authorization", required=false) String token) throws JSONException{
         List<Goods> goods = goodsRepository.findAllByActive(true);
         JSONObject json = new JSONObject();
         if( token!=null){
@@ -54,7 +55,8 @@ public class GoodsController {
         }
         json.put("page", page);
         json.put("maxPage", ((goods.size()%elInPage == 0 )? goods.size()/elInPage : goods.size()/elInPage + 1));
-        json.put("goods", Arrays.copyOfRange(goods.toArray(), elInPage*page-elInPage, ((goods.size() <= elInPage*page) ? goods.size() : elInPage*page)));
+        json.put("goods", Arrays.copyOfRange(goods.toArray(), elInPage*page-elInPage, 
+            ((goods.size() <= elInPage*page) ? goods.size() : elInPage*page)));
         String message = json.toString();
         //System.out.println(message);
         return message;
