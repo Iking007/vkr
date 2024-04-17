@@ -41,9 +41,9 @@ function Profile(){
         <div>
           {page.user && !loading ? 
             (<div class="d-flex profile">
-              <div>
-              <h2>{page.user.name}</h2>
-              <h2>{page.user.surname}</h2>
+              <div class="left_profile">
+                <h2>{page.user.name}</h2>
+                <h2>{page.user.surname}</h2>
                 <h3>Ваша роль: {page.user.role}</h3>
               </div>
               <ul class="buttons_profile">

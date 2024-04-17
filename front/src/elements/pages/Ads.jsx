@@ -37,9 +37,11 @@ function Ads(){
                         
                             {page.ads.map(ad => (
                                 <Link to={`/ad/${ad.id}`} class="my-product">
-                                    {ad.img ? (<img src={ad.img} alt="Тут должна быть картинка, но её нет"/>): 
-                                        (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
-                                    }
+                                    <div class="my_img">
+                                        {ad.img ? (<img src={ad.img} alt="Тут должна быть картинка, но её нет"/>): 
+                                            (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
+                                        }
+                                    </div>
                                     <div class="my-str"><p class="my-title">{ad.title}</p> <p class="my-des">{ad.description}</p></div>
                                     <div class="my-buttons"><p class="my-title">Цена: {ad.price}</p></div>
                                 </Link>

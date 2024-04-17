@@ -40,6 +40,7 @@ public class User implements UserDetails {
     private Ad ad;
 
     @OneToMany
+    @JoinTable(name = "Carts_user")
     private List<Cart> carts;
 
     @ManyToMany

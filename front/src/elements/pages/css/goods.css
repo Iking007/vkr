@@ -25,15 +25,19 @@
     margin-bottom: 20px;
     overflow: hidden; /* скрываем все, что выходит за границы блока */
 }
-.my-product img{
+.my_img{
     width: 25vw;
     height: 25vw;
     max-width: 40vh;
     max-height: 40vh;
+    border-radius: 4%;
+    overflow: hidden;
     border: 3px solid black;
-    
 }
-
+.my_img img{
+    height: 25vw;
+    max-height: 40vh;
+}
 .my-str{
     margin-left: 0;
     padding: 1%;

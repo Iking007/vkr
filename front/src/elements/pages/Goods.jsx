@@ -37,9 +37,11 @@ function Goods(){
                         
                             {page.goods.map(product => (
                                 <Link to={`/product/${product.id}`} class="my-product">
+                                    <div class="my_img">
                                     {product.image ? (<img src={product.image} alt="Тут должна быть картинка, но её нет"/>): 
                                         (<img src={noImg}  alt="Тут должна быть картинка, но её нет"/>)
                                     }
+                                    </div>
                                     <div class="my-str">
                                         <p class="my-title">{product.title}</p>
                                         <p>Категория:{product.category.title}</p>

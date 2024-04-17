@@ -79,9 +79,11 @@ function Ad(){
                   null
                 }
               </h5>
-              {ad.img ? (<img src={ad.img} alt="Тут должна быть картинка, но её нет"/>): 
-                (<img src={noImg} alt="Тут должна быть картинка, но её нет"/>)
-              }
+              <div class="my_img">
+                {ad.image ? (<img src={ad.image} alt="Тут должна быть картинка, но её нет"/>): 
+                  (<img src={noImg} alt="Тут должна быть картинка, но её нет"/>)
+                }
+              </div>
               <p class="fs-5 text-muted p-1">{ad.description}</p>
             </div>
             <div class="pricing-header p-3 pb-md-4 mx-auto text-justify p-end">

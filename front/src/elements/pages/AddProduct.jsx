@@ -92,7 +92,7 @@ function AddProduct(){
                 <input type="text" required
                     name="title" placeholder="Введите название"
                     class="form-control" value={title} onInput={e => setTitle(e.target.value)} autocomplete="off"/><br/>
-                <select type="text" name="category" value={categoryTitle} required placeholder="Выберите категорию" class="form-control" onChange={e => {setСategory(e.target.value)}}>
+                <select type="text" name="category" value={"/add/product" != url ?categoryTitle: null} required placeholder="Выберите категорию" class="form-control" onChange={e => {setСategory(e.target.value)}}>
                     <option value="" selected disabled>Выберите категорию</option>
                     {categories.map(MakeItemСategory)}
                 </select><br/>

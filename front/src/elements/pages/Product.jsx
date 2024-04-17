@@ -99,14 +99,16 @@ function Product(){
         (<div>{page.product.map(product => ( 
           <div>
             <div class="pricing-header p-3 pb-md-4 mx-auto text-justify">
-              <h5 class="display-4 text-center">{product.title} 
+              <h6 class="display-4 text-center">{product.title} 
                 {!product.active ? (" Нет в наличии "): 
                   null
                 }
-              </h5>
+              </h6>
+              <div class="my_img">
               {product.image ? (<img src={product.image} alt="Тут должна быть картинка, но её нет"/>): 
                 (<img src={noImg} alt="Тут должна быть картинка, но её нет"/>)
               }
+              </div>
               <p class="fs-5 text-muted p-1">{product.description}</p>
             </div>
             <div class="pricing-header p-3 pb-md-4 mx-auto text-justify p-end">

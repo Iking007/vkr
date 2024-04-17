@@ -22,8 +22,8 @@ public class Orders {
     boolean processed;
 
     @ManyToMany
-    @JoinTable(name="goods_orders")
-    List<Product_order> goods_orders;
+    @JoinTable(name="goods_order")
+    List<Product_order> goods_order;
 
     String address;
 

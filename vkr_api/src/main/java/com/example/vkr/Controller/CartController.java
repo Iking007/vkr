@@ -87,7 +87,7 @@ public class CartController {
         User user = tokenRepository.findByToken(token).get().getUser();
         if(user.getAddress() == null) return "";
         Orders order = Orders.builder()
-            .goods_orders(new ArrayList<>())
+            .goods_order(new ArrayList<>())
             .price(0)
             .processed(false)
             .address(user.getAddress().getCity() + " " + user.getAddress().getStreet() + " " + user.getAddress().getHome() + " " + user.getAddress().getFlat())
@@ -99,12 +99,12 @@ public class CartController {
                 .product(cart.getGoods())
                 .price(cart.getGoods().getPrice())
                 .quantity(cart.getQuantity()).build();
-                order.getGoods_orders().add(goods_order);
-                System.out.print(order.getGoods_orders().toString());
+                order.getGoods_order().add(goods_order);
+                System.out.print(order.getGoods_order().toString());
                 goods_orderRepository.save(goods_order);
             }
         });
-        double price = order.getGoods_orders().stream().filter(Objects::nonNull).mapToDouble(o -> o.getPrice()).sum();
+        double price = order.getGoods_order().stream().filter(Objects::nonNull).mapToDouble(o -> o.getPrice()).sum();
         JSONObject json = new JSONObject();
         if(price == 0) return null;
         order.setPrice(price);
